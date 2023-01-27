@@ -1,0 +1,86 @@
+import java.util.*;
+public class SJF{
+    //SAHIL VINAYAK TARALE
+    //ROLL NO.: 222010059
+    //SJF PREEMPTIVE PROCESS SCHEDULING
+    public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter no. of  process:");
+            int a =sc.nextInt();
+            int []p=new int[a];//processes number
+            int []at=new int[a];// at for arrival time
+            int []bt=new int[a];// bt for burst time
+            int []ct=new int[a];//ct for completion time
+            int []f=new int[a];//f for flag which checks process completed or not
+            int []tat =new int[a];// tat for turnaround time
+            int []temp =new int[a];// temp for to store burst time
+            int []tempst =new int[a]; //to store st when process get cpu firstTime
+            int []wt =new int[a];//wt for waiting time
+            int []rt =new int[a];//rt for Response time
+            int st=0;//st for system time
+
+            int count=0;// count the process which executing
+            float avgwt=0,avgtat=0;//avgwt for average waiting time
+            //avgtat for average turnaround time
+            float avgRt=0;//avgRt for average responseTime
+            for(int i=0;i<a;i++){
+                System.out.println("Enter process p"+(i+1)+" arrival is ");
+                at[i]=sc.nextInt();
+                System.out.println("Enter process p"+(i+1)+" burst is :");
+                bt[i]= sc.nextInt();
+                temp[i]=bt[i];
+                p[i]=i+1;
+                f[i]=0;
+            }
+            while(true){
+                int c=a;
+                int min = 99;
+                if(count==a){
+                break;
+                    }
+                for(int i=0;i<a;i++){
+                    if(at[i]<=st && bt[i]<min && f[i]==0){
+
+                        c=i;
+                        min=bt[i];
+                        if(bt[c]==temp[c]){//To cal systemTime time when firstTime processes get cpu
+                            tempst[c]=st;
+                            }
+
+                        }
+
+                }
+                if(c==a){
+                    //if no process arrives then system time is  increased by 1;
+                    st++;
+                }
+                if(bt[c]!=0){ //the process preempt then their burstTime should reduced
+                    bt[c]--;
+                    st++;
+                }
+
+                else{
+                    ct[c]=st+bt[c];
+                    st+=bt[c];//updating system time
+                    tat[c]=ct[c]-at[c];
+                    wt[c]=tat[c]-temp[c];
+                    rt[c]=tempst[c]-at[c];
+                    f[c]=1;//to assign process is executed
+                    count++;
+                }
+
+
+            }
+            System.out.println("pId arrivalTime burstTime   complitionTime  TurnAT  watingTime  ResponseTime");
+            for(int i=0;i<a;i++){
+                avgtat+=tat[i];
+                avgwt+=wt[i];
+                avgRt+=rt[i];
+                System.out.println(p[i]+"\t\t"+at[i]+"\t\t\t"+temp[i]+"\t\t\t"+ct[i]+"\t\t\t\t"+tat[i]+"\t\t"+wt[i]+"\t\t\t"+rt[i]);
+            }
+
+            System.out.println("The average wating time is :"+(avgwt/a));
+            System.out.println("The average turnaround time is :"+(avgtat/a));
+            System.out.println("The average response time is :"+(avgRt/a));
+    }
+}

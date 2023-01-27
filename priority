@@ -1,0 +1,52 @@
+import java.util.*;
+class process{
+    int pid,at,bt,pri,ct,tat,wt;
+    process (int pid,int at,int bt,int pri,int ct,int tat ,int wt){
+        this.pid=pid;
+        this.pri=pri;
+        this.at=at;
+        this.bt=bt;
+        this.ct=ct;
+        this.tat=tat;
+        this.wt=wt;
+
+    }
+    public String toString (){
+        return this.pid+"\t\t "+this.pri+"\t\t\t"+this.at+"\t\t\t"+this.bt+"\t\t\t"+this.ct+"\t\t\t"+this.tat+"\t\t\t"+this.wt;
+    }
+}
+class sortProcess implements Comparator<process> {
+    @Override
+    public int compare(process p1, process p2) {
+        int a=p1.at-p2.at;
+        int p=p1.pri-p2.pri;
+        return (p1.at <= p2.at) ? p : a;
+    }
+}
+public class Priority{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter no. of process : ");
+        int n= sc.nextInt();
+        int st=0;
+        int ct=0,wt=0,tat=0;
+        ArrayList<process> pr = new ArrayList<process>();
+        for(int i=0;i<n;i++){
+            System.out.println("Enter process p"+(i+1)+"priority arrival & burst time :");
+            int pt=sc.nextInt();
+            int at = sc.nextInt();
+            int bt=sc.nextInt();
+
+            pr.add(new process(i+1,pt,at,bt,ct,tat,wt));
+        }
+        Collections.sort(pr,new sortProcess());
+        System.out.println("pid priority   arrivalTime burstTime   complitionTime  turnTime    waitingTime");
+        for (int i=0;i<pr.size();i++){
+            pr.get(i).ct=st+pr.get(i).bt;
+            pr.get(i).tat=pr.get(i).ct - pr.get(i).at;
+            pr.get(i).wt=pr.get(i).tat-pr.get(i).bt;
+            st+=pr.get(i).bt;
+            System.out.println(pr.get(i));
+        }
+    }
+}

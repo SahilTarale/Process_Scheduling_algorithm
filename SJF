@@ -1,0 +1,68 @@
+public class SJF{
+    //SAHIL VINAYAK TARALE
+    //ROLL NO.: 222010059
+    //SJF NON-PREEMPTIVE
+    public static void main(String[] args) {
+     Scanner sc = new Scanner(System.in);
+        System.out.println("Enter no. of  process:");
+        int a =sc.nextInt();
+        int []p=new int[a];//processes number
+        int []at=new int[a];// at for arrival time
+        int []bt=new int[a];// bt for burst time
+        int []ct=new int[a];//ct for compltion time
+        int []f=new int[a];//f for flag which checks process completed or not
+        int []tat =new int[a];// tat for turnaround time
+        int []wt =new int[a];//wt for wating time
+        int st=0;//st for system time
+
+        int count=0;// count the process which executing
+        float avgwt=0,avgtat=0;//avgwt for average wating time
+        //avgtat for average turnaround time
+        for(int i=0;i<a;i++){
+            System.out.println("Enter process p"+(i+1)+" arrival is ");
+            at[i]=sc.nextInt();
+            System.out.println("Enter process p"+(i+1)+" burst is :");
+            bt[i]= sc.nextInt();
+            p[i]=i+1;
+            f[i]=0;
+        }
+        while(true){
+            int c=a;
+            int min = 99;
+            if(count==a){
+                break;
+            }
+            for(int i=0;i<a;i++){
+                if(at[i]<=st && bt[i]<min && f[i]==0){
+
+                    c=i;
+                    min=bt[i];
+                }
+
+            }
+            if(c==a){
+                //if non process arrives then system time is  increased by 1;
+                st++;
+            }
+            else{
+                ct[c]=st+bt[c];
+                st+=bt[c];//updating system time
+                tat[c]=ct[c]-at[c];
+                wt[c]=tat[c]-bt[c];
+                f[c]=1;
+                count++;
+            }
+
+
+        }
+        System.out.println("pId arrivalTime burstTime   complitionTime  TurnAT  watingTime");
+        for(int i=0;i<a;i++){
+            avgtat+=tat[i];
+            avgwt+=wt[i];
+            System.out.println(p[i]+"\t\t"+at[i]+"\t\t\t"+bt[i]+"\t\t\t"+ct[i]+"\t\t\t\t"+tat[i]+"\t\t"+wt[i]);
+        }
+
+        System.out.println("The average wating time is :"+(avgwt/a));
+        System.out.println("The average turnaround time is :"+(avgtat/a));
+    }
+}
