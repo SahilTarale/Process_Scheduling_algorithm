@@ -1,7 +1,6 @@
 import java.util.*;
 public class FCFS{
-    //SAHIL VINAYAK TARALE
-    //ROLL NO.: 222010059
+   
     //FCFS
     public static void main(String[] args) {
             Scanner sc = new Scanner(System.in);
