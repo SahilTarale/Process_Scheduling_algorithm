@@ -1,4 +1,5 @@
 import java.util.*;
+
 class process{
     int pid,at,bt,pri,ct,tat,wt;
     process (int pid,int at,int bt,int pri,int ct,int tat ,int wt){

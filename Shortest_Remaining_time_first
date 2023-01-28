@@ -1,7 +1,7 @@
 import java.util.*;
 public class SJF{
-    //SAHIL VINAYAK TARALE
-    //ROLL NO.: 222010059
+    //SAHIL TARALE
+    
     //SJF PREEMPTIVE PROCESS SCHEDULING
     public static void main(String[] args) {
             Scanner sc = new Scanner(System.in);
